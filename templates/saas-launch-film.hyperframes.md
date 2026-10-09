@@ -4,7 +4,7 @@ This is a reusable prompt for a 45–60 second product launch film built in Hype
 
 Fill in the `{{PLACEHOLDERS}}`, or leave them blank and let the model ask.
 
-**What the data says this template will and won't do.** In the gallery, long structured specs didn't score higher on visual wow than one-liners (3.94 vs 3.88). Where they did differ is in how often the result was the film you asked for: 76% of structured-spec outputs were product or brand films, against 38% of one-liners. Use the one-liners at the bottom to find a direction, then use this template to make the real film.
+**What the data says this template will and won't do.** In the gallery, long structured specs didn't score higher on visual wow than one-liners (3.94 vs 3.88 with the grader reading the prompt, 3.35 vs 3.55 graded blind from frames only; neither gap is significant). Where they did differ is in how often the result was the film you asked for: 76% of structured-spec outputs were product or brand films, against 38% of one-liners. Use the one-liners at the bottom to find a direction, then use this template to make the real film.
 
 ## How to use it
 
@@ -166,7 +166,10 @@ Wait for my approval before you build all the sections, and wait again before th
 
 ## Three one-liners for quick exploration
 
-Run each one inside the product repo, 2–3 times. All three keep a pressure phrase ("go all out"). In the gallery, pressure phrases like it were the only prompt feature that tracked the visual-wow score after a multiple-comparison correction (+0.33 across 95 prompts, p ≈ 0.001). They drop the "showreel" framing, which added nothing once the pressure phrase was there.
+Run each one inside the product repo, 2–3 times, and keep the best take: the spread between runs of one prompt is bigger than any wording effect we could measure.
+
+- **"Go all out" stays, but not because it helps.** It's the gallery's most common closing line and it's harmless. Graders who could read the prompt scored pressure phrases 0.33 higher, but a blind re-grade from frames only found no effect (+0.08, p ≈ 0.47; see [section 2.7](../docs/prompt-patterns.md#27-blind-re-grade-what-survives)). Keep it or cut it; don't expect it to improve the film.
+- **No "showreel" framing.** It pulls the model toward HUD-heavy technique montages rather than product films.
 
 **1. Brand slot, in-repo**
 
@@ -174,7 +177,7 @@ Run each one inside the product repo, 2–3 times. All three keep a pressure phr
 Working in this repo, make a 45-second HyperFrames launch film for {{PRODUCT}} (HTML plus one paused, seek-safe GSAP timeline per composition). Study the codebase and the landing page before designing, and build only from the real interface, copy, colours and logo you find there. Open on {{PROBLEM}} and close on {{CTA}}. Go all out.
 ```
 
-Use it to see what the model makes of your product with almost no direction. Adding a brand slot to the gallery's one-liner cost nothing measurable on the wow score (3.98 vs 4.02), and 70% of those outputs were product films, against 16% without one.
+Use it to see what the model makes of your product with almost no direction. Adding a brand slot to the gallery's one-liner cost nothing measurable on the wow score (3.98 vs 4.02 sighted, 3.55 vs 3.62 blind), and 70% of those outputs were product films, against 16% without one.
 
 **2. One object carries the film**
 
@@ -200,7 +203,7 @@ Use it to try a new story structure without writing the full spec. It brings the
 
 填好 prompt 里的 `{{PLACEHOLDERS}}` 占位符，或者留空，让模型来问你。
 
-**数据说明这份模板能做什么、不能做什么。** 在画廊数据里，长的结构化 spec 的视觉冲击分并不比一句话 prompt 高（3.94 对 3.88）。差别在于成片是不是你要的那支片子：结构化 spec 的成片有 76% 是产品片或品牌片，一句话只有 38%。所以先用文末的一句话变体找方向，方向定了再用这份模板做正式片。
+**数据说明这份模板能做什么、不能做什么。** 在画廊数据里，长的结构化 spec 的视觉冲击分并不比一句话 prompt 高（评分员看得到 prompt 时 3.94 对 3.88，只看画面盲评时 3.35 对 3.55，两个差距都不显著）。差别在于成片是不是你要的那支片子：结构化 spec 的成片有 76% 是产品片或品牌片，一句话只有 38%。所以先用文末的一句话变体找方向，方向定了再用这份模板做正式片。
 
 ### 怎么用
 
@@ -267,9 +270,10 @@ prompt 正文见上方的 [The prompt](#the-prompt)，保持英文原样，直�
 
 ### 三个一句话变体
 
-prompt 原文见上方的 [Three one-liners for quick exploration](#three-one-liners-for-quick-exploration)，每个都在产品仓库里跑 2–3 次。
+prompt 原文见上方的 [Three one-liners for quick exploration](#three-one-liners-for-quick-exploration)，每个都在产品仓库里跑 2–3 次，留最好的一版：同一句 prompt 多次运行之间的差距，比我们能测到的任何措辞效应都大。
 
-- **共同点。** 三个都保留了加码词 "go all out"：在画廊数据里，这类加码词是唯一经得起多重比较校正、和视觉冲击分相关的写法（95 条，+0.33，p ≈ 0.001）。三个都去掉了 showreel 体裁：有了加码词之后，体裁带不来可测量的提升。
-- **变体 1（品牌槽 + 在仓库里跑）。** 用最少的指导，看看模型怎么理解你的产品。数据里加品牌槽几乎不降视觉冲击分（3.98 对 4.02），产品片占比却从 16% 升到 70%。
+- **保留 "go all out"，但不是因为它管用。** 这是画廊里最常见的结尾，留着无妨。能看到 prompt 的评分员给加码词平均高 0.33 分，但只看画面的盲评重打没有发现任何效果（+0.08，p ≈ 0.47，见[第 2.7 节](../docs/zh/prompt-patterns.md#27-盲评重打哪些结论还站得住)）。留不留都行，别指望它让片子变好。
+- **去掉 showreel 体裁。** 它会把模型带向 HUD 堆满的技法蒙太奇，而不是产品片。
+- **变体 1（品牌槽 + 在仓库里跑）。** 用最少的指导，看看模型怎么理解你的产品。数据里加品牌槽几乎不降视觉冲击分（明评 3.98 对 4.02，盲评 3.55 对 3.62），产品片占比却从 16% 升到 70%。
 - **变体 2（一个物件贯穿全片）。** 适合快速试一个视觉概念。一条连续性规则，就能给模型一整张分镜表能给的大部分东西。
 - **变体 3（一段话讲完故事）。** 适合不写完整 spec 就试一种新的叙事结构。不用标签，也带上了故事弧、阅读节奏和自查。

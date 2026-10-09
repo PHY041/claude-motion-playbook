@@ -1,19 +1,19 @@
 # Prompt patterns: how the 233 prompts are written, and what actually tracks quality
 
-This is a snapshot of [prompt-motion.com](https://www.prompt-motion.com/) (curated by [@p4nthera_](https://x.com/p4nthera_)) taken on 2026-10-09. It covers 233 entries. 230 of them have a prompt; the other 3 are skills that come with only an install command. `#N` is the `id` in [`catalog/catalog.json`](../catalog/catalog.json). Every number below was recomputed from the prompt texts, the catalog and the grader records. Method and caveats are in [section 2.1](#21-method-read-this-before-the-numbers).
+This is a snapshot of [prompt-motion.com](https://www.prompt-motion.com/) (curated by [@p4nthera_](https://x.com/p4nthera_)) taken on 2026-10-09. It covers 233 entries. 230 of them have a prompt; the other 3 are skills that come with only an install command. `#N` is the `id` in [`catalog/catalog.json`](../catalog/catalog.json). Every number below was recomputed from the prompt texts, the catalog and the grader records. Method and caveats are in [section 2.1](#21-method-read-this-before-the-numbers); the blind re-grade that corrects our earlier pressure-phrase finding is in [section 2.7](#27-blind-re-grade-what-survives).
 
 [简体中文版](zh/prompt-patterns.md)
 
 ## TL;DR
 
 - **One prompt dominates.** The "showreel" one-liner appears **33 times verbatim, from 33 different accounts** (22 of those copies are byte-identical). Rewrites, translations and brand-slot versions bring the family to **102 prompts, 44% of the 230**. Another 12 keep only its skeleton, for 114 in all (50%). The median prompt in the gallery is 151 characters long, which is exactly the length of that one-liner.
-- **Writing more doesn't buy more wow.** On the graders' 1–5 visual-wow scale, structured specs average 3.94 and one-liners 3.88 (n = 17 vs 154, permutation p ≈ 0.87). The graders also scored prompt quality, and that score barely tracks visual wow (Spearman ρ = 0.06, p ≈ 0.40).
+- **Writing more doesn't buy more wow.** On the graders' 1–5 visual-wow scale, structured specs average 3.94 and one-liners 3.88 (n = 17 vs 154, permutation p ≈ 0.87). Graded blind from frames only, it's 3.35 vs 3.55 (p ≈ 0.38): still no real difference. The graders also scored prompt quality, and that score barely tracks visual wow (Spearman ρ = 0.06, p ≈ 0.40).
 - **What long specs buy is control.** 76% of the videos made from structured specs are product or brand films. For one-liners it's 38%. And 131 of the 136 prompts that state a single duration got a video within 0.8–1.25× of it.
-- **Pressure words like "go all out" are the strongest single correlate of wow.** They're the only one of 15 prompt features that survives a multiple-comparison correction: 4.05 vs 3.73 (n = 95 prompts with a pressure phrase vs 135 without, p ≈ 0.001; "go all out" itself appears in 87). But it travels with the showreel template. Holding template membership constant, the gap is +0.31 (p ≈ 0.04).
-- **Adding a brand slot costs nothing measurable.** Inside the family, prompts that name a product or person score 3.98 and pure self-showreels 4.02 (n = 44 vs 58, p ≈ 0.89). Meanwhile the share of product or brand films rises from 16% to 70%.
-- **The same prompt gives different films.** The 31 distinct videos made from the verbatim one-liner score anywhere from 3 to 5. They fall into 4 categories and run from 14.9 s to 45.1 s.
+- **"Go all out" moves the grader, not the film.** Graders who could read the prompt scored prompts with a pressure phrase 0.33 higher (4.05 vs 3.73, n = 95 vs 135, p ≈ 0.001; "go all out" itself appears in 87). Re-graded blind, from frames only, the gap is +0.08 (95% CI −0.11 to +0.27, p ≈ 0.47), and none of the 15 prompt features we tested predicts the blind score. Details in [section 2.7](#27-blind-re-grade-what-survives).
+- **Adding a brand slot costs nothing measurable.** Inside the family, prompts that name a product or person score 3.98 and pure self-showreels 4.02 (n = 44 vs 58, p ≈ 0.89); blind, 3.55 vs 3.62 (p ≈ 0.68). Meanwhile the share of product or brand films rises from 16% to 70%.
+- **The same prompt gives different films.** The 31 distinct videos made from the verbatim one-liner span 2 to 5 on the blind grade (SD 0.68, close to the 0.73 of the whole gallery). They fall into 4 categories and run from 14.9 s to 45.1 s. Generating a few takes and keeping the best is the lever you actually control.
 - **Long specs share one anatomy.** A six-tag XML layout (`<inputs>` `<direction>` `<structure>` `<build>` `<gotchas>` `<start>`) appears in 10 entries from 6 accounts, posted between 09-23 and 10-08. Most of its value is in the gotchas, the deterministic rendering rules and the approval and QA gates.
-- **Grader noise is about ±1 point,** so any gap below roughly 0.3 is noise-level. We publish aggregates only, never per-entry scores.
+- **Grader noise is about ±1 point.** A fresh grader with the original instructions agreed at weighted κ 0.74; a blind grader agreed at κ 0.51 and scored 0.33 lower. Any gap below roughly 0.3 is noise-level, so we publish aggregates only, never per-entry scores.
 
 ---
 
@@ -30,13 +30,13 @@ It opens "make a dynamic 15-second motion graphics video that shows what an incr
 | Format and length (a 15-second motion graphics video) | Sets the format and the length. The length is mostly respected: 96 of the 100 one-liners that state one duration landed within 0.8–1.25× of it. |
 | Self-proof (the model as an incredible motion designer) | Turns "make a video" into "prove yourself", so the model shows every technique it knows. |
 | Genre (a showreel for a résumé) | Picks the genre: a technique montage with chapter numbers and a closing lockup. That's why these films look alike. |
-| Pressure ("go all out") | Adds pressure. Pressure phrases are the prompt feature most strongly linked to the wow score (section 2.3). |
+| Pressure ("go all out") | Asks for maximum effort. Graders who could read the prompt scored such prompts higher, but graders who saw only the frames found no difference ([section 2.7](#27-blind-re-grade-what-survives)). It sways the reader, not the film. |
 
 ### 1.2 Variants
 
 We read all 114 prompts and sorted them by hand. Every member is listed in [Appendix A](#appendix-a-family-membership). "Product/brand film" means the catalog `category` is `product-launch-film`, `saas-ui-walkthrough`, `social-ad-vertical` or `logo-brand-ident`.
 
-| Variant | n | Example | Mean wow | Product/brand film |
+| Variant | n | Example | Mean wow (sighted) | Product/brand film |
 |---|---|---|---|---|
 | A. Verbatim (ignoring case, accents, punctuation) | 33 | #3 above | 3.97 | 18% |
 | B. Verbatim + one appended sentence | 8 | [#17 Dub promo video — @steventey](https://www.prompt-motion.com/steventey-0d20e4) adds a launch-video line pointing at the product URL | 4.38 | 62% |
@@ -48,8 +48,8 @@ We read all 114 prompts and sorted them by hand. Every member is listed in [Appe
 | F. Skeleton only (no designer, no showreel) | 12 | [#31 SuperX feature release teaser — @robj3d3](https://www.prompt-motion.com/robj3d3-b18fad) | 3.75 | 83% |
 
 - **The core family** (A–E, G, H) is 102 prompts from 98 accounts, using 69 distinct texts. Adding F gives 114 prompts, 110 accounts and 80 distinct texts.
-- **The family scores higher than the rest of the gallery, but only through its pressure words.** The core family averages 4.00 against 3.75 for every other prompt (n = 102 vs 128, p ≈ 0.011). With reposts removed it's 4.02 vs 3.74 (p ≈ 0.003). Holding pressure words constant, the gap falls to +0.02 (stratified permutation p ≈ 0.89).
-- **The verbatim copies on their own are not special:** 3.97 vs 3.84 for everything else (p ≈ 0.37).
+- **The family scored higher only with the prompt in view.** On the sighted grade, the core family averages 4.00 against 3.75 for every other prompt (n = 102 vs 128, p ≈ 0.011; 4.02 vs 3.74 with reposts removed, p ≈ 0.003), and the whole gap sits on its pressure words: holding them constant, it falls to +0.02 (stratified permutation p ≈ 0.89). Graded blind, the family is +0.10 over the rest (p ≈ 0.37), which is noise-level. The pressure words themselves don't predict the blind score ([section 2.7](#27-blind-re-grade-what-survives)).
+- **The verbatim copies on their own are not special:** 3.97 vs 3.84 for everything else on the sighted grade (p ≈ 0.37).
 - **Timing.** The verbatim copies were posted on 09-24 (1), 09-25 (21), 09-26 (10) and 09-27 (1). 09-25 and 09-26 were also the gallery's busiest days, with 82 and 68 entries.
 - **Reposts.** [#129 Claude motion designer showreel — @mrtanviir](https://www.prompt-motion.com/mrtanviir-132457) and [#227 Shape and dot motion showreel — @umangratani](https://www.prompt-motion.com/umangratani-57f86a) repost the same video (re-encoded at 720p) as [#4 Abstract motion design reel — @ajith_io](https://www.prompt-motion.com/ajith-io-b5626e), the earliest post of that video. So the 33 verbatim prompts produced 31 distinct videos.
 - **Common small tweaks:**
@@ -87,16 +87,19 @@ The model clearly had context the gallery doesn't show, such as a repo, project 
 - **Score.** "Visual wow" is a 1–5 score from AI graders. Each grader saw a 6-frame contact sheet of the video plus its prompt. Two graders typically differ by about ±1 point.
   - Sanity check: 5 entries are reposts of a video that's already in the gallery. In 4 of those 5 cases the repost got the same score as the original, and in 1 it was a point off.
   - Because of this noise, **per-entry scores are not published.**
+- **Sighted vs blind.** Sections 2.2–2.6 report these original grades, which we call *sighted* because the grader could read the prompt. [Section 2.7](#27-blind-re-grade-what-survives) re-grades all 233 videos *blind*, from frames only, and re-tests the main findings. Where the two disagree, go with the blind result. The pressure-phrase finding is the one that didn't survive.
 - **Distribution.** Across the 230 prompts, 5 videos scored 2, 65 scored 3, 117 scored 4 and 43 scored 5. Nothing scored 1. The mean is 3.86 (SD 0.73). With almost everything sitting at 3 or 4, a 0.3-point gap is already large.
 - **Prompt features** were detected with regular expressions on the prompt text. The variant families in section 1 were sorted by hand.
 - **Tests.** p-values come from two-sided permutation tests on the difference of means (20,000 seeded label shuffles). Spearman p-values are permutation tests too. With 15 features tested, the Bonferroni threshold is 0.05 / 15 ≈ 0.0033.
 - **"Product/brand film"** uses the catalog `category`, which the same graders assigned. It's a label, not a score.
 
-### 2.2 Single features vs visual wow (230 prompts)
+### 2.2 Single features vs visual wow (230 prompts, sighted grader)
+
+> **Superseded by the blind re-grade.** This table uses the original sighted grades. Graded blind, the top two rows shrink to +0.08 (p ≈ 0.47) and +0.11 (p ≈ 0.31), and no row is significant. The side-by-side table is in [section 2.7](#27-blind-re-grade-what-survives).
 
 | Feature in the prompt | n with | Mean wow with / without | Diff | p |
 |---|---|---|---|---|
-| Pressure words ("go all out" in 87 prompts, plus "go crazy", 全力, …) | 95 | 4.05 / 3.73 | **+0.33** | **0.001** |
+| Pressure words ("go all out" in 87 prompts, plus "go crazy", 全力, …) | 95 | 4.05 / 3.73 | +0.33 | 0.001 |
 | Showreel / résumé / portfolio framing | 92 | 4.02 / 3.75 | +0.27 | 0.007 |
 | Names a URL, @handle or placeholder | 33 | 4.03 / 3.83 | +0.20 | 0.15 |
 | States a duration | 148 | 3.93 / 3.74 | +0.18 | 0.07 |
@@ -112,79 +115,142 @@ The model clearly had context the gallery doesn't show, such as a repo, project 
 | Hex colour values | 8 | 3.75 / 3.86 | −0.11 | 0.81 |
 | Names a tech stack | 37 | 3.70 / 3.89 | −0.19 | 0.18 |
 
-Only the first row clears the corrected threshold. The negative rows are all noise-level (p ≥ 0.18), so they don't show that hex colours or role lines hurt.
+On the sighted grade, only the first row cleared the corrected threshold; on the blind grade, none does. The negative rows here are all noise-level (p ≥ 0.18), so they don't show that hex colours or role lines hurt.
 
 ### 2.3 Pressure words, untangled
 
-Pressure words and the showreel framing usually arrive together, so we split them:
+Pressure words and the showreel framing usually arrive together, so we split them. Each cell gives the sighted mean, then the blind mean from [section 2.7](#27-blind-re-grade-what-survives):
 
-| | Showreel framing | No showreel framing |
+| Mean wow, sighted / blind | Showreel framing | No showreel framing |
 |---|---|---|
-| **Pressure words** | 4.06 (n = 81) | 4.00 (n = 14) |
-| **No pressure words** | 3.73 (n = 11) | 3.73 (n = 124) |
+| **Pressure words** | 4.06 / 3.64 (n = 81) | 4.00 / 3.21 (n = 14) |
+| **No pressure words** | 3.73 / 3.27 (n = 11) | 3.73 / 3.52 (n = 124) |
 
-- **Showreel framing without pressure words scores the same as the baseline.** With pressure words held constant, the framing adds +0.03 (stratified permutation p ≈ 0.88).
-- **Pressure words keep their gap in both strata.** With family membership held constant, the gap is +0.31 (p ≈ 0.04). With showreel framing held constant, it's +0.30 (p ≈ 0.06).
-- **Pressure prompts also have fewer weak results:** 18% scored 3 or below, against 39% of the rest.
-- **This is a correlation, not proof of cause.** Two of the cells are small (14 and 11 prompts).
-- **A looser definition gives a bigger gap.** Our own hand-picked list of intensity phrases (n = 118 vs 112) shows +0.42 (p < 0.001), but that list is a judgment call.
+- **On the sighted grade, pressure words kept their gap in both strata.** Holding family membership constant, the gap was +0.31 (p ≈ 0.04); holding showreel framing constant, +0.30 (p ≈ 0.06). The framing itself added +0.03 once pressure words were held constant (stratified permutation p ≈ 0.88).
+- **On the blind grade, the gap is gone.** Holding family membership constant it's +0.01, and holding showreel framing constant −0.01 (both p ≈ 1.0). The framing adds +0.12 with pressure words held constant (p ≈ 0.46).
+- **The gap came from the grader.** For pressure prompts the sighted grade sits 0.47 above the blind grade; for the rest, 0.22. That difference of +0.25 (95% CI 0.07 to 0.43, p ≈ 0.007) is the phrase priming the grader that reads it.
+- **Fewer weak results? Only on the sighted grade:** 18% of pressure prompts scored 3 or below, against 39% of the rest. Blind, it's 46% vs 53%.
+- **A looser definition doesn't rescue it.** Our own hand-picked list of intensity phrases (n = 118 vs 112) showed +0.42 on the sighted grade (p < 0.001) and +0.10 blind (p ≈ 0.32).
 
 ### 2.4 Long specs vs one-liners
 
-| Prompt type (catalog) | n | Mean wow | Scored 3 or below | Product/brand film |
+| Prompt type (catalog) | n | Mean wow, sighted / blind | Scored 3 or below, sighted / blind | Product/brand film |
 |---|---|---|---|---|
-| One-liner | 154 | 3.88 | 31% | 38% |
-| Short brief | 56 | 3.80 | 29% | 48% |
-| Structured spec | 17 | 3.94 | 24% | 76% |
-| Skill-driven | 6 | 3.83 | 33% | 33% |
+| One-liner | 154 | 3.88 / 3.55 | 31% / 48% | 38% |
+| Short brief | 56 | 3.80 / 3.55 | 29% / 52% | 48% |
+| Structured spec | 17 | 3.94 / 3.35 | 24% / 59% | 76% |
+| Skill-driven | 6 | 3.83 / 3.50 | 33% / 67% | 33% |
 
-- **Wow: no real difference.** Structured specs vs one-liners: +0.06 (p ≈ 0.87). Prompts over 500 characters vs the rest: +0.15 (n = 23 vs 207, p ≈ 0.37).
-- **Length has a weak positive rank correlation with wow** (ρ = 0.14, p ≈ 0.04). The very shortest prompts drive it:
+- **Wow: no real difference.** Structured specs vs one-liners: +0.06 on the sighted grade (p ≈ 0.87) and −0.19 blind (p ≈ 0.38). Prompts over 500 characters vs the rest: +0.15 sighted (n = 23 vs 207, p ≈ 0.37) and −0.06 blind (p ≈ 0.77).
+- **Length had a weak positive rank correlation with sighted wow** (ρ = 0.14, p ≈ 0.04), driven by the very shortest prompts:
   - 100 characters or less: mean 3.70, and 42% scored 3 or below;
   - 101–200 characters, where the one-liner family sits: mean 3.95, and 25% scored 3 or below.
-- **Prompt craft is not visual wow.** The graders' prompt-quality score correlates strongly with length (ρ = 0.68) but hardly at all with wow (ρ = 0.06, p ≈ 0.40). The 15 prompts rated 5 for craft average 4.00 wow; the 47 rated 1 average 3.72.
+
+  On the blind grade it disappears (ρ ≈ 0.00, p ≈ 0.97; 3.50 vs 3.57 for the two bands).
+- **Prompt craft is not visual wow.** The graders' prompt-quality score correlates strongly with length (ρ = 0.68) but hardly at all with wow (ρ = 0.06 sighted, p ≈ 0.40; −0.07 blind, p ≈ 0.26). The 15 prompts rated 5 for craft average 4.00 sighted wow; the 47 rated 1 average 3.72.
 - **What long specs change is what you get:**
   - a product film rather than a technique montage (76% vs 38%);
-  - the requested format and copy;
-  - possibly fewer misses (24% vs 31% scored 3 or below). That last point is our reading; on n = 17 the data only weakly supports it.
+  - the requested format and copy.
+
+  The sighted grades hinted at fewer misses for specs (24% vs 31% scored 3 or below). The blind grades don't support that (59% vs 48%, on only 17 specs), so we no longer make that claim. The product-film share is a category label, not a quality score, and it holds up ([section 2.7](#27-blind-re-grade-what-survives)).
 
 ### 2.5 Brand insertion
 
 Inside the core family:
 
-| | n | Mean wow | Product/brand film |
+| | n | Mean wow, sighted / blind | Product/brand film |
 |---|---|---|---|
-| Names a product, brand, project or person | 44 | 3.98 | 70% |
-| Pure self-showreel | 58 | 4.02 | 16% |
+| Names a product, brand, project or person | 44 | 3.98 / 3.55 | 70% |
+| Pure self-showreel | 58 | 4.02 / 3.62 | 16% |
 
-The wow difference is −0.04 (p ≈ 0.89), which is effectively zero. **A brand slot turns most outputs into product films with no measurable loss of wow.** The pure group includes the 6 verbatim prompts that produced product films anyway (section 1.4).
+The wow difference is −0.04 on the sighted grade (p ≈ 0.89) and −0.08 blind (p ≈ 0.68), effectively zero both ways. **A brand slot turns most outputs into product films with no measurable loss of wow.** The pure group includes the 6 verbatim prompts that produced product films anyway (section 1.4).
 
 ### 2.6 Same prompt, different results
 
-- **The verbatim one-liner.** Its 31 distinct videos split 7 / 17 / 7 across scores 3 / 4 / 5. They fall into 4 catalog categories and run from 14.9 s to 45.1 s.
+- **The verbatim one-liner.** On the sighted grade, its 31 distinct videos split 7 / 17 / 7 across scores 3 / 4 / 5. On the blind grade they split 1 / 14 / 14 / 2 across 2 / 3 / 4 / 5, with an SD of 0.68 against 0.73 for all 230 prompts: one fixed prompt spreads almost as widely as the whole gallery. They fall into 4 catalog categories and run from 14.9 s to 45.1 s.
 - **Four other prompts were each posted twice with different videos:**
   - [#2 Shape morphing through UI states — @twoclipping](https://www.prompt-motion.com/twoclipping-5cba86) and [#97 Morphing UI states loop — @demonugc](https://www.prompt-motion.com/demonugc-4c5753), which use the same 2,711-character spec;
   - [#12 Distilbook product video — @ajith_io](https://www.prompt-motion.com/ajith-io-c52e09) and [#33 Distilbook motion showreel — @itisRazak](https://www.prompt-motion.com/itisrazak-3ad902);
   - [#63 Claude self-intro motion graphic — @1littlecoder](https://www.prompt-motion.com/1littlecoder-9fef89) and [#215 Kinetic type self-portrait — @souravbhar871](https://www.prompt-motion.com/souravbhar871-61f424);
   - [#160 DistilBook product explainer — @sudo_kiran](https://www.prompt-motion.com/sudo-kiran-4f8b59) and [#68 DistilBook motion explainer — @sudo_kiran](https://www.prompt-motion.com/sudo-kiran-b055de). This is the gallery's only case of one account re-running its own prompt.
 
-  In all four pairs, the two videos are one point apart.
+  On the sighted grade, the two videos in each pair are one point apart. On the blind grade the gaps are 0, 1, 1 and 2 points.
 - **Honest limit.** One point is also the size of the grader noise, so we can't separate run-to-run variation from grading noise.
 - **The runs really do differ, though.** The evidence that doesn't rely on scores: the same prompt lands in different categories and lengths, and one of the #2/#97 pair was posted with a soundtrack and the other without.
-- **Practical takeaway:** one or two videos can't tell you which way of prompting is better. The spread within a single prompt (up to 2 points) is larger than any average gap between prompt features in section 2.2 (0.33 at most).
+- **Practical takeaway:** one or two videos can't tell you which way of prompting is better. A single prompt spans 2 to 5 on the blind grade, while no average gap between prompt features survives blind grading ([section 2.7](#27-blind-re-grade-what-survives)). Generating a few takes and keeping the best is the lever you actually control.
 
-### 2.7 What we can and can't say
+### 2.7 Blind re-grade: what survives
+
+**Why we did it.** The original graders read each prompt next to its frames. A prompt that says "go all out" or "showreel" could tilt the grade before the grader looks at a single frame. Our first version listed this as an unchecked guess. Since pressure phrases were our headline finding, we checked it.
+
+**Method.**
+
+- **Blind re-grade.** Fresh Claude Opus 5.5 graders scored all 233 videos on the same 1–5 visual-wow scale. They saw only the 6-frame contact sheet, with the option to pull extra frames when a sheet was unclear (used for 6 entries). They got no prompt, title, creator, metadata or earlier score. The work ran in 4 interleaved batches, and the batches don't differ (permutation p ≈ 0.87).
+- **Retest.** A separate fresh grader re-scored 50 entries with the original sighted instructions, to measure ordinary drift between graders.
+- **Same tests.** The same 15 regex features, permutation tests (20,000 shuffles) and Bonferroni threshold (0.0033) as section 2.2.
+
+**Reliability.**
+
+| Comparison | n | Weighted κ (95% CI) | Exact / within 1 point | Mean shift |
+|---|---|---|---|---|
+| Fresh sighted grader vs original | 50 | 0.74 (0.60–0.84) | 58% / 100% | −0.26 |
+| Blind grader vs original | 233 | 0.51 (0.42–0.59) | 52% / 97% | −0.33 |
+| Blind grader vs fresh sighted grader | 50 | 0.82 (0.68–0.91) | 76% / 100% | −0.20 (p ≈ 0.007) |
+
+- κ is quadratic-weighted. The new graders are stricter than the original ones, and hiding the prompt lowers scores by a further 0.20 on the same 50 entries.
+- Repost check: only 1 of the 5 repost pairs got matching blind scores (3 pairs were a point apart, 1 was two apart). On the sighted grade it was 4 of 5. A single grade is noisy either way.
+
+**Feature by feature, sighted vs blind (230 prompts).**
+
+| Feature in the prompt | n with | Sighted diff (p) | Blind mean with / without | Blind diff (p) |
+|---|---|---|---|---|
+| Pressure words ("go all out", "go crazy", 全力, …) | 95 | +0.33 (0.001) | 3.58 / 3.50 | +0.08 (0.47) |
+| Showreel / résumé / portfolio framing | 92 | +0.27 (0.007) | 3.60 / 3.49 | +0.11 (0.31) |
+| Names a URL, @handle or placeholder | 33 | +0.20 (0.15) | 3.64 / 3.52 | +0.12 (0.44) |
+| States a duration | 148 | +0.18 (0.07) | 3.51 / 3.59 | −0.08 (0.45) |
+| Banned / avoid list | 17 | +0.15 (0.50) | 3.35 / 3.55 | −0.20 (0.31) |
+| Approval gate before the full build | 10 | +0.15 (0.66) | 3.30 / 3.55 | −0.25 (0.38) |
+| BPM / beat grid | 18 | +0.03 (0.87) | 3.28 / 3.56 | −0.28 (0.13) |
+| Asks for music, sound or voice | 44 | +0.03 (0.82) | 3.50 / 3.54 | −0.04 (0.73) |
+| Self-QA after render | 12 | −0.03 (1.00) | 3.25 / 3.55 | −0.30 (0.22) |
+| Real assets (repo, site, screenshots) | 31 | −0.06 (0.69) | 3.32 / 3.57 | −0.25 (0.09) |
+| Research / read sources first | 20 | −0.07 (0.75) | 3.25 / 3.56 | −0.31 (0.07) |
+| Role line ("you are a … designer") | 9 | −0.09 (0.82) | 3.44 / 3.54 | −0.09 (0.81) |
+| Deterministic render (seek(t), pure function of time) | 13 | −0.10 (0.70) | 3.15 / 3.56 | −0.40 (0.08) |
+| Hex colour values | 8 | −0.11 (0.81) | 3.12 / 3.55 | −0.42 (0.14) |
+| Names a tech stack | 37 | −0.19 (0.18) | 3.38 / 3.56 | −0.19 (0.18) |
+
+- **No feature predicts the blind score.** The smallest uncorrected p is 0.07, far from the 0.0033 threshold, and after correction every feature sits at p = 1.0. All 15 together explain 6% of the variance in blind scores (adjusted R² ≈ 0).
+- **The pressure-phrase gap was grader priming.** Blind, it's +0.08 (95% CI −0.11 to +0.27, p ≈ 0.47), and about zero once family or showreel framing is held constant (+0.01 and −0.01). The sighted grade sits 0.47 above the blind grade for pressure prompts and 0.22 above it for the rest. That extra +0.25 (95% CI 0.07 to 0.43, p ≈ 0.007) is the phrase lifting the score of the grader who reads it.
+- **Spec-style features lean negative blind** (deterministic render, research first, real assets, self-QA, beat grid, hex colours: −0.25 to −0.42 on 8–31 prompts), but none is significant even before correction. One possible reading is that these specs ban the dense, flashy looks a frames-only judge rewards (section 3.2). We don't read it as harm.
+
+**What survives and what doesn't.**
+
+| Finding | Sighted grade | Blind grade | Verdict |
+|---|---|---|---|
+| Pressure words go with higher wow | +0.33 (p ≈ 0.001) | +0.08 (p ≈ 0.47) | Corrected: grader priming |
+| The core family beats the rest | +0.25 (p ≈ 0.011) | +0.10 (p ≈ 0.37) | Doesn't survive |
+| Longer prompts score slightly higher | ρ = 0.14 (p ≈ 0.04) | ρ ≈ 0.00 (p ≈ 0.97) | Doesn't survive |
+| Specs miss less often (scored 3 or below) | 24% vs 31% | 59% vs 48% | Doesn't survive |
+| Specs look no better than one-liners | 3.94 vs 3.88 (p ≈ 0.87) | 3.35 vs 3.55 (p ≈ 0.38) | Survives |
+| A brand slot costs no wow | −0.04 (p ≈ 0.89) | −0.08 (p ≈ 0.68) | Survives |
+| One prompt gives a wide spread | 3 to 5 | 2 to 5 (SD 0.68 vs 0.73 overall) | Survives |
+
+**Control still stands.** "76% of spec-driven videos are product or brand films, against 38% of one-liners" rests on catalog category labels, not on quality scores. The labels hold up too: on the 50 retest entries, the fresh grader agreed on product/brand film or not for 47 (94%, κ 0.88) and on the exact category for 44 (88%).
+
+### 2.8 What we can and can't say
 
 - **Can say:**
-  - Pressure words go with higher wow.
   - Long specs and named brands go with on-brief product films.
-  - How a prompt is written explains little of the variance in wow.
+  - How a prompt is written explains little of the variance in wow. On the blind grade, all 15 features together explain about none of it.
+  - A grader who reads the prompt is swayed by it. Pressure phrases widen the sighted-minus-blind gap by 0.25 points (p ≈ 0.007).
 - **Can't say:**
-  - "More detail makes it more impressive." The data does not support this.
-  - "Hex colours, role lines or naming a stack hurt." These are noise-level gaps on 8–37 prompts.
-  - Anything from the `effort` metadata. Only 36 prompts carry it (Max 22 prompts, 4.09; High 7, 4.29; Medium 7, 3.57).
-- **Survivorship.** The gallery only holds videos people chose to post. Part of the one-liners' strength may come from "ran it several times, posted the best one", and the discarded runs are invisible.
-- **Possible grader bias (our guess, not checked).** The graders saw the prompt as well as the frames. "Wow" may also reward technique density (3D, particles, style jumps), which many long specs ban on purpose.
+  - "Pressure words like 'go all out' make better videos." The blind re-grade finds no effect (+0.08, p ≈ 0.47).
+  - "More detail makes it more impressive." Neither grade supports this.
+  - "Hex colours, deterministic-render rules or research steps hurt." Their blind gaps lean negative, but none is significant (p ≥ 0.07, n = 8–31).
+  - Anything from the `effort` metadata. Only 36 prompts carry it (sighted grade: Max 22 prompts, 4.09; High 7, 4.29; Medium 7, 3.57).
+- **Survivorship.** The gallery only holds videos people chose to post. Part of what any group scores may come from "ran it several times, posted the best one", and the discarded runs are invisible.
+- **Grader bias, now checked.** The original graders saw the prompt as well as the frames, and section 2.7 shows that this lifts scores, more so for pressure prompts. Blind "wow" may still reward technique density (3D, particles, style jumps), which many long specs ban on purpose. That part we haven't tested.
 - **Not independent.** Templates get copied: one long spec was reused word for word and another at 99.5% (section 3.1). And 5 videos were reposted under other accounts.
 
 ---
@@ -303,8 +369,8 @@ The wow difference is −0.04 (p ≈ 0.89), which is effectively zero. **A brand
 
 ## 4. Applying this to SaaS launch films
 
-1. **Explore with a one-liner.** Use the brand-slot variant and run it inside the product repo. Run each version 2–3 times before you judge it: the same prompt swings by a point or two (section 2.6), and repo context visibly changes the output (section 1.4).
-2. **Keep the pressure phrase and drop the showreel framing** if you want a product film. Once the pressure words are there, the framing adds nothing measurable (section 2.3), and it pulls toward HUD-heavy montages (section 1.3).
+1. **Explore with a one-liner.** Use the brand-slot variant and run it inside the product repo. Run each version 2–3 times before you judge it: the same prompt swings by a point or two (section 2.6), and repo context visibly changes the output (section 1.4). Picking the best of several takes is the lever you actually control.
+2. **Drop the showreel framing** if you want a product film. It pulls toward HUD-heavy technique montages (section 1.3) and doesn't raise the blind score (+0.11, p ≈ 0.31). "Go all out" is harmless to keep, but don't expect it to improve the film: the blind re-grade found no effect ([section 2.7](#27-blind-re-grade-what-survives)).
 3. **Switch to a structured spec once you have a direction.** It won't make the film more impressive. It will make it about your product, in your format, built from real UI and real facts, with an approval gate before the expensive render.
 4. **Borrow the gotchas and the QA gates first.** They're the least obvious part of a spec, and they cost nothing to include.
 
@@ -357,3 +423,7 @@ F, skeleton only (12): [#31 @robj3d3](https://www.prompt-motion.com/robj3d3-b18f
 | [#137 Reflex brand motion reel — @reflex_cloud](https://www.prompt-motion.com/reflex-cloud-72ffe5) | 544 | Paragraph | — |
 | [#85 Visual guides library launch — @techyoutbe](https://www.prompt-motion.com/techyoutbe-945b56) | 519 | Paragraph | — |
 | [#197 Sketchbook animals come alive — @abderrahmen_g](https://www.prompt-motion.com/abderrahmen-g-9e8ed0) | 502 | Paragraph + asset folder | JavaScript |
+
+## Changelog
+
+- 2026-10-09: added blind re-grade; corrected the pressure-phrase finding.
