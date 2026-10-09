@@ -30,6 +30,7 @@ This repo is our notes. **It stores no videos, no frames and no full prompts.** 
 | Ecosystem | [ecosystem.md](docs/ecosystem.md) | [zh](docs/zh/ecosystem.md) | 100 collections, lists, showcases and skill directories like this one |
 | Template | [saas-launch-film.hyperframes.md](templates/saas-launch-film.hyperframes.md) | (bilingual) | Our own 45–60 s SaaS launch-film prompt for HyperFrames, plus 3 one-liners |
 | Catalog | [catalog.csv](catalog/catalog.csv) · [catalog.json](catalog/catalog.json) | | All 233 entries: creator, date, stack, length, aspect ratio, category, techniques, links |
+| Dataset | [🤗 PHY041/claude-motion-playbook](https://huggingface.co/datasets/PHY041/claude-motion-playbook) | | The same catalog on Hugging Face: `load_dataset("PHY041/claude-motion-playbook")` |
 
 **No time?** Watch these six first (5 min 44 s in total): [#5](https://www.prompt-motion.com/twoclipping-221cab) · [#8](https://www.prompt-motion.com/lexnlin-038035) · [#126](https://www.prompt-motion.com/ik-builds-b8bdcf) · [#36](https://www.prompt-motion.com/ismailfahmi-557268) · [#64](https://www.prompt-motion.com/sayan-shanky-f850d8) · [#29](https://www.prompt-motion.com/kloss-xyz-fe0c31). [Why these →](docs/top-picks.md#1-start-here-6-videos-in-10-minutes)
 

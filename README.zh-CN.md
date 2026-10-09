@@ -30,6 +30,7 @@
 | 生态地图 | [ecosystem](docs/zh/ecosystem.md) | [en](docs/ecosystem.md) | 100 个同类合集、清单、官方展示页和 skill 目录 |
 | 模板 | [saas-launch-film.hyperframes.md](templates/saas-launch-film.hyperframes.md) | （中英合一） | 我们自己写的 45–60 秒 SaaS 发布片 HyperFrames prompt，外加 3 个一句话变体 |
 | 数据表 | [catalog.csv](catalog/catalog.csv) · [catalog.json](catalog/catalog.json) | | 233 条的作者、日期、技术栈、时长、画幅、类别、手法、链接 |
+| 数据集 | [🤗 PHY041/claude-motion-playbook](https://huggingface.co/datasets/PHY041/claude-motion-playbook) | | 同一份数据表放在 Hugging Face 上：`load_dataset("PHY041/claude-motion-playbook")` |
 
 **没时间？先看这 6 条**（加起来 5 分 44 秒）：[#5](https://www.prompt-motion.com/twoclipping-221cab) · [#8](https://www.prompt-motion.com/lexnlin-038035) · [#126](https://www.prompt-motion.com/ik-builds-b8bdcf) · [#36](https://www.prompt-motion.com/ismailfahmi-557268) · [#64](https://www.prompt-motion.com/sayan-shanky-f850d8) · [#29](https://www.prompt-motion.com/kloss-xyz-fe0c31)。[为什么是这 6 条 →](docs/zh/top-picks.md#1-从这里开始10-分钟看-6-条)
 
